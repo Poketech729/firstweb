@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Healthy Food</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #8BC34A, #4CAF50, #2196F3, #DCEDC8);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+            color: #558B2F;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 25px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .login-button {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        .login-button:hover {
+            background: linear-gradient(45deg, #45a049, #7cb342);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 195, 74, 0.4);
+        }
+
+        .error-message {
+            color: #D32F2F;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Spinach animation */
+        .spinach-container {
+            position: relative;
+            height: 50px; /* Adjust as needed */
+        }
+
+        .spinach {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px; /* Adjust as needed */
+            height: auto;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .spinach.shake {
+            animation: shakeSpinach 0.5s;
+        }
+
+        @keyframes shakeSpinach {
+            0%, 100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            20%, 60% {
+                transform: translateX(calc(-50% - 10px)) rotate(-10deg);
+            }
+            40%, 80% {
+                transform: translateX(calc(-50% + 10px)) rotate(10deg);
+            }
+        }
+
+        .create-account {
+            color: blue;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Add styles for the links container */
+        .account-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .account-links::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 1px;
+            background-color: #E0E0E0;
+        }
+
+        .account-links a {
+            color: #2196F3;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .account-links a:hover {
+            color: #1976D2;
+            background-color: rgba(33, 150, 243, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+
+        /* Password visibility toggle */
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Loading state */
+        .login-button.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .login-button.loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-right-color: transparent;
+            animation: rotate 0.8s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Remember me checkbox */
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding-left: 10px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 4px;
+            margin-top: 8px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-weak { background: #ff4444; width: 33%; }
+        .strength-medium { background: #ffbb33; width: 66%; }
+        .strength-strong { background: #00C851; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="login-container">
+        <h2>Login to Your Healthy Food Account</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div id="emailError" class="error-message"></div>
+            </div>
+            <div class="form-group password-field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <button type="button" class="password-toggle" id="passwordToggle">👁️</button>
+                <div class="password-strength" id="passwordStrength"></div>
+            </div>
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me</label>
+            </div>
+            <button type="submit" class="login-button" id="loginButton">Login</button>
+            <div class="spinach-container">
+                <img id="spinachImage" src="https://i.imgur.com/J41KbLX.png" alt="Cartoon Spinach" class="spinach">
+            </div>
+            <div class="account-links">
+                <a href="signup.html" class="create-account">Create Account</a>
+                <a href="forpass.html" class="forgot-password">Forgotten Password?</a>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const passwordStrength = document.getElementById('passwordStrength');
+            const emailError = document.getElementById('emailError');
+            const errorMessage = document.getElementById('errorMessage');
+            const spinachImage = document.getElementById('spinachImage');
+
+            // Password visibility toggle
+            passwordToggle.addEventListener('click', () => {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                passwordToggle.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+            });
+
+            // Email validation
+            emailInput.addEventListener('input', () => {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailInput.value)) {
+                    emailError.textContent = 'Please enter a valid email address';
+                } else {
+                    emailError.textContent = '';
+                }
+            });
+
+            // Password strength check
+            passwordInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                let strength = '';
+                
+                if (password.length < 6) {
+                    strength = 'weak';
+                } else if (password.length < 10) {
+                    strength = 'medium';
+                } else {
+                    strength = 'strong';
+                }
+
+                passwordStrength.className = 'password-strength strength-' + strength;
+            });
+
+            // Form submission
+            loginForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                // Show loading state
+                loginButton.classList.add('loading');
+
+                try {
+                    // Simulate API call with timeout
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+
+                    const email = emailInput.value;
+                    const password = passwordInput.value;
+                    const rememberMe = document.getElementById('rememberMe').checked;
+
+                    if (email === '1@2.com' && password === '123') {
+                        if (rememberMe) {
+                            localStorage.setItem('rememberedEmail', email);
+                        }
+                        window.location.href = 'index.html';
+                    } else {
+                        errorMessage.textContent = 'Incorrect email or password';
+                        spinachImage.classList.add('shake');
+                    }
+                } catch (error) {
+                    errorMessage.textContent = 'Network error. Please try again.';
+                } finally {
+                    loginButton.classList.remove('loading');
+                }
+            });
+
+            // Check for remembered email
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                emailInput.value = rememberedEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Food Store</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Link to the external CSS file for styling -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FF9800;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+        }
+
+        /* Update header styles */
+        header {
+            background: linear-gradient(-45deg, #4CAF50, #8BC34A, #2196F3, #FF9800);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced navigation styles */
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        nav ul li a:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: width 0.6s, height 0.6s;
+        }
+
+        nav ul li a:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        nav ul li a:hover:before {
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+        }
+
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced auth buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth-buttons a {
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn {
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .signup-btn {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .auth-buttons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+
+        .signup-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .product-box {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .buy-now {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .buy-now:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Add these new styles for the header content */
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li> <!-- Link to the home page -->
+                <li><a href="#">About Us</a></li> <!-- Link to the about us page -->
+                <li><a href="#">Products</a></li> <!-- Link to the products page -->
+                <li><a href="#">Contact</a></li> <!-- Link to the contact page -->
+            </ul>
+            <div class="auth-buttons">
+                <a href="login.html" class="login-btn">Login</a>
+                <a href="signup.html" class="signup-btn">Sign Up</a>
+            </div>
+        </nav>
+        <div class="header-content">
+            <h1>Welcome to the Healthy Food Store</h1> <!-- Main heading of the website -->
+            <p>Your one-stop shop for nutritious and delicious food!</p> <!-- Subheading for the website -->
+        </div>
+    </header>
+
+    <main>
+        <section class="product-list"> <!-- Section for listing products -->
+            <div class="product-row"> <!-- Row to hold 3 products -->
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/71amJKuvoNL._AC_UL320_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/51yv0StZE7L.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/51EfglimBQL.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/51Av6sB517L.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Beyond snack banana chips</h2> <!-- Placeholder for product name -->
+                    <p>Thin, Crispy & Tasty Chips:Made with authentic Nedran/Yellow banana in the original Kerala style. Original coconut oil, say no to palm oil and salted with pure pink salt.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/3FlEcwn" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/71JXiyia0AL._AC_UL320_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/81+be0-ssHL._SX679_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/613Wg1nlO-L._SX679_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Farmley Roasted Makhana</h2> <!-- Placeholder for product name -->
+                    <p>Farmley, source all the nuts & dry fruits directly from the farms which are hygienically packed in a HACCP certified unit.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/435OWbA" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/61X+g3QhT9L._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/61nimP00ZxL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/81p-hnIX2DL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61KZKAzaPlL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Ching’s Secret Whole Wheat Noodles</h2> <!-- Placeholder for product name -->
+                    <p>No Maida, No Guilt: Satisfy your craving for street-style Desi Chinese Hakka Noodles with Ching’s No Maida Whole Wheat Noodles without feeling guilty. These noodles have no maida, no MSG and no palm oil. They are also air-fried and not fried in oil.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.in/d/8BaGDnP" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+            </div>
+            <div class="product-row"> <!-- Row to hold 3 products -->
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/81a8COq5b-L._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/71WmLFYlQpL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="placeholder-image-link-2.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="placeholder-image-link-3.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Mid Break Jowar Atta Biscuits</h2> <!-- Placeholder for product name -->
+                    <p>Millets Cookies | Gluten Free | Maida and Egg Free Biscuits Snack With No Added Sugar & Palm Oil | High In Fiber, Protein & Wholesome Nutrition.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/3F8d2ct" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/61LdExZ-B7L._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/718DcuiQE4L._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/71gkE7nmZjL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/71k53daYH+L._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Open Secret Cookies | 2 Boxes, 6 Cookies Each</h2> <!-- Placeholder for product name -->
+                    <p>Cookies Biscuits, Cookies Gift Packs, Healthy High Protein, No Added Maida, Gifts (6 X 2 = 12)</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/3EXNX40" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/81UA5JrLOZL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/91o0IZjBmOL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/81vHSJfa5KL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61WVTiWkouL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Roasty Tasty Millet Mix Peri Peri</h2> <!-- Placeholder for product name -->
+                    <p>PALM OIL FREE DELIGHT - NON FRIED, NO CHOLESTEROL, NO TRANSFAT: Say goodbye to cholesterol and trans fat as you eat better & thus feel better with this healthy snack without palm oil.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/4333851" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+            </div>
+            <div class="product-row"> <!-- Row to hold 3 products -->
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/71TsgdSGWnL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/71vOdzVNkXL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61l3ysqAa+L._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/81-hTcQ15oL._AC_UF894,1000_QL80_FMwebp_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Fabeato Vegetable Chips Combo</h2> <!-- Placeholder for product name -->
+                    <p>No Palm Oil|Peri Peri Flavors Okra |Smokey BBQ & Mexican Cheese Sweet Potato |Ghost Jolokia Flavour Beetroot Chips|Jack Fruit | Vacuum Fried|Pack of 5.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/3Sbg3LX" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/51hP9GJG1DL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/71AFmqmkAtL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61KeAy565vL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61aW2jnwacL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Open Secret Namkeen</h2> <!-- Placeholder for product name -->
+                    <p>Zero Trans Fat and No Cholesterol, making it an ideal snack for people who are conscious about their health and want to maintain a healthy lifestyle.</p> <!-- Placeholder for product description -->
+                    <a href="https://www.amazon.in/dp/B0CP466P7Q?ref=cm_sw_r_cso_cp_apan_dp_F574J6ZAFN72ZT3Y8FBB&ref_=cm_sw_r_cso_cp_apan_dp_F574J6ZAFN72ZT3Y8FBB&social_share=cm_sw_r_cso_cp_apan_dp_F574J6ZAFN72ZT3Y8FBB&previewDoh=1" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+                <div class="product-box"> <!-- Individual product box -->
+                    <div class="image-container"> <!-- Container for product images -->
+                        <img src="https://m.media-amazon.com/images/I/61Qlz2Ug00L._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image" class="product-image"> <!-- Placeholder for product image -->
+                        <div class="slideshow"> <!-- Slideshow container for hover effect -->
+                            <img src="https://m.media-amazon.com/images/I/71U-0i69bzL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 1" class="slideshow-image"> <!-- First image for slideshow -->
+                            <img src="https://m.media-amazon.com/images/I/61JFjBZpYxL._AC_UF1000,1000_QL80_FMwebp_.jpg" alt="Product Image 2" class="slideshow-image"> <!-- Second image for slideshow -->
+                            <img src="placeholder-image-link-3.jpg" alt="Product Image 3" class="slideshow-image"> <!-- Third image for slideshow -->
+                        </div>
+                    </div>
+                    <h2>Adukale Methi Kodubale</h2> <!-- Placeholder for product name -->
+                    <p>Package Contents: 1 Pack of Methi Kodubale, 180 gms | No palm Oil, Shelf Life : 6 Months; Ingredient Type : Vegetarian, Storage Instructions : Store in a cool dry place.</p> <!-- Placeholder for product description -->
+                    <a href="https://amzn.to/3SOqsgJ" class="buy-now">Buy Now</a> <!-- Link to purchase the product -->
+                </div>
+            </div>
+            <!-- Repeat the product-row div for more products -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We are committed to providing healthy and nutritious food options for a better lifestyle.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Healthy Food Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Healthy Food</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #FF9A9E, #FAD0C4, #FFD1FF, #B5FFFC, #85FFBD, #E0C3FC, #43E97B);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .signup-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .password-strength {
+            height: 4px;
+            margin-top: 8px;
+            border-radius: 2px;
+            transition: all 0.5s ease;
+            background: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strength-weak {
+            background: linear-gradient(45deg, #ff4444, #ff9a9e);
+            width: 33%;
+        }
+
+        .strength-medium {
+            background: linear-gradient(45deg, #ffbb33, #ffd700);
+            width: 66%;
+        }
+
+        .strength-strong {
+            background: linear-gradient(45deg, #00C851, #43E97B);
+            width: 100%;
+        }
+
+        .password-requirements {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            padding-left: 15px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            position: absolute;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px 15px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .form-group:focus-within .password-requirements,
+        .form-group:hover .password-requirements {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .requirement {
+            margin: 6px 0;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .requirement:before {
+            content: '•';
+            color: #ccc;
+        }
+
+        .requirement.met:before {
+            content: '✓';
+            color: #00C851;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signup-button:hover {
+            background: linear-gradient(45deg, #45a049, #7cb342);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 195, 74, 0.4);
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: #00C851;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Create Account</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+                <div class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required>
+                <div class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <button type="button" class="password-toggle" id="passwordToggle">👁️</button>
+                <div class="password-strength" id="passwordStrength"></div>
+                <div class="password-requirements">
+                    <div class="requirement" id="length">• At least 8 characters</div>
+                    <div class="requirement" id="uppercase">• At least one uppercase letter</div>
+                    <div class="requirement" id="lowercase">• At least one lowercase letter</div>
+                    <div class="requirement" id="number">• At least one number</div>
+                    <div class="requirement" id="special">• At least one special character</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" required>
+                <button type="button" class="password-toggle" id="confirmPasswordToggle">👁️</button>
+                <div class="error-message"></div>
+            </div>
+
+            <button type="submit" class="signup-button">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signupForm');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+            const passwordStrength = document.getElementById('passwordStrength');
+
+            // Password visibility toggle
+            function togglePasswordVisibility(inputField, toggleButton) {
+                const type = inputField.type === 'password' ? 'text' : 'password';
+                inputField.type = type;
+                toggleButton.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+            }
+
+            passwordToggle.addEventListener('click', () => togglePasswordVisibility(password, passwordToggle));
+            confirmPasswordToggle.addEventListener('click', () => togglePasswordVisibility(confirmPassword, confirmPasswordToggle));
+
+            // Password strength and requirements check
+            const requirements = {
+                length: /.{8,}/,
+                uppercase: /[A-Z]/,
+                lowercase: /[a-z]/,
+                number: /[0-9]/,
+                special: /[^A-Za-z0-9]/
+            };
+
+            password.addEventListener('input', function() {
+                let strength = 0;
+                const value = this.value;
+
+                Object.keys(requirements).forEach(requirement => {
+                    const element = document.getElementById(requirement);
+                    const isValid = requirements[requirement].test(value);
+                    element.classList.toggle('met', isValid);
+                    if (isValid) strength++;
+                });
+
+                passwordStrength.className = 'password-strength ' + 
+                    (strength < 3 ? 'strength-weak' : 
+                     strength < 4 ? 'strength-medium' : 
+                     'strength-strong');
+            });
+
+            // Add this inside your existing DOMContentLoaded event listener
+            const passwordField = document.querySelector('.form-group:has(#password)');
+            const requirementsPanel = document.querySelector('.password-requirements');
+
+            // Adjust requirements panel position based on available space
+            passwordField.addEventListener('mouseenter', () => {
+                const rect = requirementsPanel.getBoundingClientRect();
+                const spaceBelow = window.innerHeight - rect.bottom;
+                
+                if (spaceBelow < 20) {
+                    requirementsPanel.style.bottom = '100%';
+                    requirementsPanel.style.top = 'auto';
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Add your form validation and submission logic here
+                // For example:
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.nextElementSibling.nextElementSibling.textContent = 'Passwords do not match';
+                    return;
+                }
+
+                // If validation passes, you can submit the form to your backend
+                alert('Account created successfully!');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
