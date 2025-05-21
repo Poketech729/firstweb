@@ -1,7 +1,7 @@
 # Healthy Food Website
 
 ## Overview
-This project is a professional healthy food selling website designed to showcase various healthy food products. The website features a clean and modern layout, making it easy for users to browse products and make purchases. The design includes responsive elements, ensuring a seamless experience across different devices.
+This project is a food selling website designed to showcase various healthy food products. The website features a clean and modern layout, making it easy for users to browse products and make purchases. The design includes responsive elements. Nothing else to look for also this is the result of one week of css and html and also looks cursed on phones and also isn't that good looking but signin and login forms are looking good.
 
 ## Project Structure
 The project consists of the following files:
